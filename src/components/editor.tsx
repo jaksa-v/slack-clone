@@ -12,6 +12,7 @@ import {
 import { Button } from "./ui/button";
 import { ImageIcon, Smile } from "lucide-react";
 import { Hint } from "./hint";
+import { EmojiPopover } from "./emoji-popover";
 import { Delta, Op } from "quill/core";
 import { cn } from "@/lib/utils";
 
@@ -133,6 +134,13 @@ const Editor = ({
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onEmojiSelect = (emoji: any) => {
+    const quill = quillRef.current;
+
+    quill?.insertText(quill?.getSelection()?.index || 0, emoji.native);
+  };
+
   const isEmpty = text.replace(/<(.|\n)*?>/g, "").trim().length === 0;
 
   return (
@@ -153,14 +161,11 @@ const Editor = ({
             </Button>
           </Hint>
           <Hint label="Emoji">
-            <Button
-              disabled={disabled}
-              size="iconSm"
-              variant="ghost"
-              onClick={() => {}}
-            >
-              <Smile className="size-4" />
-            </Button>
+            <EmojiPopover onEmojiSelect={onEmojiSelect}>
+              <Button disabled={disabled} size="iconSm" variant="ghost">
+                <Smile className="size-4" />
+              </Button>
+            </EmojiPopover>
           </Hint>
           {variant === "create" && (
             <Hint label="Image">
