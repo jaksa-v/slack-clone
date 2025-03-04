@@ -84,7 +84,7 @@ export const WorkspaceSidebar = () => {
         onNew={() => {}}
       >
         {members?.map((item) => (
-          <>
+          <div key={item?._id}>
             {item && (
               <UserItem
                 key={item._id}
@@ -93,7 +93,7 @@ export const WorkspaceSidebar = () => {
                 image={item.user.image}
               />
             )}
-          </>
+          </div>
         ))}
       </WorkspaceSection>
     </div>
