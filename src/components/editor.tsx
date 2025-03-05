@@ -148,8 +148,17 @@ const Editor = ({
 
   const onEmojiSelect = (emojiValue: string) => {
     const quill = quillRef.current;
-
-    quill?.insertText(quill?.getSelection()?.index || 0, emojiValue);
+    if (!quill) return;
+    
+    // Get the current selection or focus the editor if there's no active selection
+    const selection = quill.getSelection();
+    if (!selection) {
+      quill.focus();
+    }
+    
+    // Insert the emoji at the current cursor position
+    const cursorPosition = quill.getSelection()?.index || quill.getText().length;
+    quill.insertText(cursorPosition, emojiValue);
   };
 
   const isEmpty = !image && text.replace(/<(.|\n)*?>/g, "").trim().length === 0;
