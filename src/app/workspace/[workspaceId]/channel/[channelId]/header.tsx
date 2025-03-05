@@ -45,6 +45,7 @@ export const Header = ({ title }: HeaderProps) => {
   const { mutate: removeChannel, isPending: isRemovingChannel } =
     useRemoveChannel();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleEditOpen = (value: boolean) => {
     if (member?.role !== "admin") {
       return;
